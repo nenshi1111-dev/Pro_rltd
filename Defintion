@@ -1,0 +1,159 @@
+```ini
+I need to get help to build my gym management  site first of all i want to make a frontend user visible  site which hasphp page like 
+
+home about contact gallery login and logout only 
+
+Make frontend  end all code first give me index.php about.php gallery and contact and login.php files all file has same theme color and fonts etc look like all site classic 
+I need a classic color only not gold and use silver cold colors that is shoutable to gym site but not gold oky so create a responsive site  
+
+with graphical images and best folder structure like this
+main folder is 
+gym-management/
+│
+
+├── index.php
+
+├── about.php
+
+├── gallery.php
+
+├── contact.php
+
+├── login.php
+
+├── logout.php
+
+│
+
+├── css/
+
+│   └── style.css
+
+│
+
+├── js/
+
+│   └── script.js
+
+│
+
+├── images/
+
+│
+
+├── includes/
+
+│   ├── header.php
+
+│   ├── navbar.php
+
+│   ├── footer.php
+│
+
+└── 
+
+admin/
+----------
+best background color cards and all are responsive and beautiful button that feel like this is gym site
+
+Animations
+
+
+
+Sticky navbar
+
+
+
+Hero text fade-in
+
+
+
+Button hover effect
+
+
+
+Image zoom on hover
+
+
+
+Smooth scrolling
+
+
+
+Card hover lift
+
+
+
+Gallery hover overlay
+
+
+
+Fade-in sections on scroll
+
+
+
+same font and their color different color in secondary color
+
+
+
+
+-Responsive Design
+
+Your site should adapt to:
+Mobile
+Tablet
+Laptop
+Desktop
+
+Use:
+CSS Flexbox
+CSS Grid
+Media Queries
+
+
+
+
+
+i want to tell something like i want to display my fee plan in public view site so plan is packlage like 1.standard 2.premium and 3.elite 
+standard 1000 /month same other 1500 and 2000 
+and the show the services give inside each plan 
+
+compare all 3 that show to site viewer and then add validity means if member pay 3 month plan concurrently then it give 10 % discount then 6 month has 20% and 12 month has 25% discount so show everything to user and main thins is
+
+not show the join now button on public site 
+
+
+
+                      │
+      ┌──────────────────────────────────┐
+      │ Home │ About │ Gallery │ Contact │
+   
+
+      └──────────────────────────────────┘
+                      │
+                Membership Plans
+               
+
+        │
+                  Join Now Button
+                       │
+                       ▼
+      "Visit our gym or contact us to become a member."
+                       │
+                       ▼
+          Admin registers the member
+          (collects details physically)
+                       │
+                       ▼
+      Username & Password are created
+                       │
+                       ▼
+                            Member
+logsin
+
+so now give first frontend all file with css and js and garaphical representation  and file structure understanding and tell how many images need and temoprary use online image  
+
+main thing is gym name is Gym-pro  and created by (nenshi) and (pal)
+this name show in footer 
+make site as a student level simple and unique and best not take very har coding let simple coding only to make a site 
+```
