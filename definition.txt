@@ -1,0 +1,1472 @@
+======================================================
+GYM-PRO — COMPLETE GYM MANAGEMENT SYSTEM
+MASTER PROJECT PROMPT (FINAL / MERGED VERSION)
+======================================================
+
+
+You are an experienced Full Stack PHP Developer.
+
+
+I want you to build a complete Gym Management System named Gym-Pro
+using simple, student-level, easy-to-understand code. This is a
+college final year project, so the code must be clean and well
+commented, not over-engineered.
+
+
+======================================================
+SECTION 0 — GLOBAL RULES (APPLY TO EVERY FILE)
+======================================================
+
+
+• Use PHP, MySQL, HTML, CSS, and JavaScript only.
+• Must run on XAMPP or WAMP on Windows 7 (and above).
+• Do NOT use Laravel, CodeIgniter, or any PHP framework.
+• Use procedural PHP only (no OOP, no Composer, no PDO required —
+  mysqli is preferred, but PDO with prepared statements is also
+  acceptable if kept simple).
+• Use Bootstrap 5 only where it genuinely simplifies layout
+  (grid, modals, forms) — do not rely on it for the core theme;
+  the visual identity should come from custom CSS.
+• Code must be clean, properly indented, and commented in plain
+  English so a beginner can follow it.
+• Do NOT generate unnecessarily complicated code, design patterns,
+  or abstractions. Keep functions small and direct.
+• Use reusable include files for header, navbar, sidebar, and
+  footer in every module (public, admin, trainer, member) so
+  markup is not repeated on every page.
+• Use PHP Sessions correctly everywhere — start the session once,
+  check it on every protected page, and destroy it on logout.
+• Use prepared statements (mysqli_prepare / bind_param, or PDO
+  bound parameters) for every single database query that includes
+  user input. No raw string concatenation into SQL.
+• Follow responsive design on every page — mobile, tablet, laptop,
+  and desktop must all look correct.
+• Every link and form must open in the SAME browser tab. Never use
+  target="_blank" anywhere on the site except the one "View Public
+  Website" button available to logged-in Admin, Trainer, and
+  Member (that one may open in a new tab so their dashboard session
+  is not lost).
+• Every password input field (login, register, change password,
+  renewal forms, add/edit member, add/edit trainer, add admin)
+  must include a small eye icon that toggles the password between
+  hidden and visible using JavaScript.
+• Check your own code before presenting it — no undefined
+  variables, no unclosed tags, no missing includes, no broken
+  redirects.
+• Do not skip any required file. Do not leave any feature
+  described below unimplemented.
+
+
+======================================================
+SECTION 1 — PROJECT IDENTITY
+======================================================
+
+
+Project Name : Gym-Pro
+Database Name : gym_pro
+
+
+Footer (must appear on every page of every module — public,
+admin, trainer, member) should display:
+
+
+    Gym-Pro
+    Created By:
+    Nenshi
+    Pal
+
+
+Use a simple classic gym logo (dumbbell / barbell icon inside a
+circle badge) as the site logo. Show this logo in the public
+navbar, the admin sidebar, the trainer sidebar, and the member
+sidebar.
+
+
+======================================================
+SECTION 2 — COMPLETE FOLDER STRUCTURE
+======================================================
+
+
+gym-management/
+│
+├── index.php
+├── about.php
+├── gallery.php
+├── contact.php
+├── login.php (Member login)
+├── register.php (Online membership request form)
+├── logout.php
+│
+├── css/
+│ └── style.css
+│
+├── js/
+│ └── script.js
+│
+├── images/
+│
+├── includes/
+│ ├── header.php
+│ ├── navbar.php
+│ ├── footer.php
+│ └── config.php (Database connection)
+│
+├── admin/
+│ ├── index.php (Admin Dashboard)
+│ ├── login.php (Admin Login)
+│ ├── logout.php
+│ ├── css/
+│ ├── js/
+│ ├── includes/
+│ │ ├── header.php
+│ │ ├── sidebar.php
+│ │ ├── topbar.php
+│ │ ├── footer.php
+│ │ └── auth.php (Session guard)
+│ │
+│ ├── member/
+│ │ ├── members.php (Member list)
+│ │ ├── add-member.php
+│ │ ├── edit-member.php
+│ │ ├── view-member.php
+│ │ ├── delete-member.php
+│ │ └── renew-member.php (Admin-side manual renewal)
+│ │
+│ ├── trainer/
+│ │ ├── trainers.php (Trainer list)
+│ │ ├── add-trainer.php
+│ │ ├── edit-trainer.php
+│ │ ├── view-trainer.php
+│ │ └── delete-trainer.php
+│ │
+│ ├── batch/
+│ │ ├── batches.php (Batch list)
+│ │ ├── add-batch.php
+│ │ ├── edit-batch.php
+│ │ ├── view-batch.php (Assigned members + trainers)
+│ │ └── delete-batch.php
+│ │
+│ ├── equipment/
+│ │ ├── equipment.php
+│ │ ├── add-equipment.php
+│ │ ├── edit-equipment.php
+│ │ └── delete-equipment.php
+│ │
+│ ├── announcement/
+│ │ ├── announcements.php
+│ │ ├── add-announcement.php
+│ │ └── delete-announcement.php
+│ │
+│ ├── request/
+│ │ ├── registration_request/
+│ │ │ ├── requests.php (Pending / approved / rejected list)
+│ │ │ ├── view-request.php
+│ │ │ ├── approve-request.php
+│ │ │ └── reject-request.php
+│ │ │
+│ │ └── renewable_request/
+│ │ ├── requests.php
+│ │ ├── view-request.php
+│ │ ├── approve-request.php
+│ │ └── reject-request.php
+│ │
+│ └── settings/
+│ └── settings.php (Admin change password)
+│
+├── trainer/
+│ ├── index.php (Trainer Dashboard)
+│ ├── login.php (Trainer Login)
+│ ├── logout.php
+│ ├── css/
+│ ├── js/
+│ ├── includes/
+│ │ ├── header.php
+│ │ ├── sidebar.php
+│ │ ├── topbar.php
+│ │ ├── footer.php
+│ │ └── auth.php
+│ │
+│ ├── batch/
+│ │ ├── my-batches.php
+│ │ └── batch-details.php
+│ │
+│ ├── profile.php
+│ ├── my-members.php (Members inside trainer's batches — view only)
+│ ├── today-schedule.php
+│ ├── workout-plan.php (Create/update workout plan per batch)
+│ ├── announcements.php
+│ │
+│ └── settings/
+│ └── change-password.php
+│
+└── member/
+    ├── index.php (Member Dashboard)
+    ├── profile.php
+    ├── membership.php
+    ├── expired.php (Membership Expired page)
+    ├── renew-request.php (Submit renewal request)
+    ├── renew-status.php (Pending renewal status page)
+    ├── my-batch.php (Batch info + workout schedule)
+    ├── announcement.php
+    ├── change-password.php
+    └── logout.php
+
+
+Notes on structure:
+• Public root pages (index.php, about.php, gallery.php, contact.php,
+  login.php, register.php, logout.php) belong to the visitor-facing
+  site only.
+• admin/, trainer/, and member/ each have their OWN css/, js/, and
+  includes/ folders. Do not let them share the public site's
+  includes — each panel is self-contained with its own header,
+  sidebar/topbar, and footer, even though the visual theme
+  (colors and fonts) stays consistent across all four areas.
+• The public site must never be affected by anything inside
+  admin/, trainer/, or member/.
+
+
+======================================================
+SECTION 3 — VISUAL DESIGN SYSTEM
+======================================================
+
+
+Theme : Modern, Classic, Professional Gym look.
+
+
+Color Palette (NO GOLD ANYWHERE):
+    Primary : Dark Charcoal (#1b1f23 / #101214)
+    Secondary : Silver (#c8ccd0 / #eceff1)
+    Accent : Steel Gray/Blue (#4a5a6a / #5b7a99)
+    Background : White / Off-white (#ffffff / #f5f6f7)
+
+
+Font : Poppins (Google Font), for both headings and body text.
+       Use consistent font-weight scale (400 body, 600 subheadings,
+       700 headings). Secondary text may use a slightly lighter
+       shade of the same steel/silver family.
+
+
+Required Animations:
+    • Sticky navbar (stays fixed on scroll, slight shrink allowed)
+    • Hero section text fade-in on page load
+    • Button hover effect (color shift + slight lift)
+    • Card hover lift effect (shadow + translateY)
+    • Gallery image hover overlay (title fades in over dimmed image)
+    • Fade-in sections on scroll (IntersectionObserver)
+    • Smooth scrolling for in-page anchor links
+    • Image zoom-in on hover (gallery + about images)
+
+
+Responsive Requirements:
+    Must adapt correctly to Mobile, Tablet, Laptop, Desktop, and
+    other common device widths.
+    Use CSS Flexbox, CSS Grid, and Media Queries throughout —
+    no fixed pixel-only layouts.
+
+
+======================================================
+SECTION 4 — PUBLIC WEBSITE
+======================================================
+
+
+Pages (root level, procedural PHP, shared header/navbar/footer):
+    1. Home (index.php)
+    2. About (about.php)
+    3. Gallery (gallery.php)
+    4. Contact (contact.php)
+    5. Member Login (login.php)
+    6. Register Request (register.php)
+    7. Logout (logout.php)
+
+
+No online "instant" registration exists — a visitor submitting the
+register.php form does NOT become a member immediately (see Section
+7). There is NO "Join Now" button anywhere on the public site.
+Wherever a call-to-action for membership would normally appear
+(Home hero, Membership Plans section, Plan comparison table), show
+this text instead:
+
+
+    "Visit our gym or contact us to become a member."
+
+
+along with a "Register" button that links to register.php, where a
+visitor can submit a request that the admin later approves.
+
+
+--- Home Page (index.php) Sections, in order ---
+    1. Hero Section
+         - Gym-Pro logo
+         - Welcome heading with fade-in animation
+         - Short supporting text
+         - CTA button: "Explore Membership Plans" (scrolls to
+           the Membership Plans section)
+    2. About Section (short summary, links to about.php)
+    3. Facilities Section (card grid: cardio zone, free weights,
+       group classes, personal training, etc.)
+    4. Why Choose Us Section (card grid with icons)
+    5. Trainer Section (preview of 3-4 trainers with photo, name,
+       specialization — pulled from the trainers table)
+    6. Membership Plans Section (see Section 5 below)
+    7. Gallery Preview Section (4-6 images, "View Full Gallery"
+       button linking to gallery.php)
+    8. Testimonials Section (simple card slider or grid — static
+       sample testimonials are fine)
+    9. Contact Preview Section (address, phone, short contact form
+       or a button linking to contact.php)
+    10. Footer (see Section 1)
+
+
+--- About Page ---
+    Gym story, mission, values, founder credits (Nenshi & Pal),
+    and a photo/zoom-in image block.
+
+
+--- Gallery Page ---
+    Responsive grid of gym photos with hover overlay + zoom effect.
+    Tell me how many images are needed (roughly 6-10) and use
+    temporary online stock images (e.g. Unsplash URLs) as
+    placeholders until real photos are added.
+
+
+--- Contact Page ---
+    Gym address, phone, email, working hours, and a simple contact
+    form (name, email, phone, message). The form does not need to
+    email anything — a friendly on-page confirmation message after
+    submission is enough for this project.
+
+
+======================================================
+SECTION 5 — MEMBERSHIP PLANS & DISCOUNT RULES
+======================================================
+
+
+Show exactly three plans, publicly visible to all visitors:
+
+
+    1. Standard — ₹1000/month
+    2. Premium — ₹1500/month
+    3. Elite — ₹2000/month
+
+
+Each plan card must display:
+    • Plan name
+    • Monthly price
+    • List of facilities/services included in that plan
+      (define these once, clearly, and reuse the exact same list
+      everywhere the plan is shown — public site, admin add/edit
+      member form, member's "My Membership" page. Do not invent
+      extra facilities in one place that are missing in another.)
+
+
+Duration Discounts (apply the SAME percentages everywhere a price
+is calculated — public comparison table, admin add/renew member
+form, admin renewal-request approval, member renewal request form,
+member "My Membership" page):
+    • 1 Month : full monthly price, no discount
+    • 3 Months : 10% discount on the 3-month total
+    • 6 Months : 20% discount on the 3-month total
+    • 12 Months : 25% discount on the 12-month total
+
+
+Show a full comparison table on the public site with columns:
+    Plan | Monthly Price | 3 Months (10% off) | 6 Months (20% off)
+    | 12 Months (25% off)
+
+
+Do NOT show a "Join Now" or "Buy Now" button anywhere near the
+plans. Instead show:
+
+
+    "Visit our gym or contact us to become a member."
+    [ Register ] -> links to register.php
+
+
+======================================================
+SECTION 6 — AUTHENTICATION & LOGIN SYSTEM
+======================================================
+
+
+There are 3 roles in this system:
+    1. Admin (full control)
+    2. Trainer (batch + workout management)
+    3. Member (own dashboard only)
+
+
+--- Public Navbar Login Access ---
+    • A "Login" button in the public navbar opens login.php
+      (Member Login only).
+    • On login.php, below the login form, show a notice:
+          "If you are not a member yet, send a request to become
+          a member."
+      with a "Send Request" button linking to register.php.
+    • A separate small "Settings" gear icon in the navbar (kept
+      apart from the member Login button) opens a simple selection
+      screen offering two choices with a clean icon-based UI:
+          - Admin Login -> admin/login.php
+          - Trainer Login -> trainer/login.php
+
+
+--- Login Behaviour Rules (apply identically to all three roles) ---
+    • login.php (member), admin/login.php, and trainer/login.php
+      each check on page load: if a valid session for that role
+      already exists, redirect immediately to that role's own
+      index.php instead of showing the login form again.
+    • On successful login:
+          Member -> member/index.php (session: member_id, member_name)
+          Admin -> admin/index.php (session: admin_id, admin_name)
+          Trainer -> trainer/index.php (session: trainer_id, trainer_name)
+    • On failed login, show a clear inline error message and keep
+      the form on the same page (same tab, no redirect to a
+      separate error page).
+    • Every password field has a working show/hide (eye icon) toggle.
+    • logout.php (root, admin/logout.php, trainer/logout.php,
+      member/logout.php) must unset and destroy the session, then
+      redirect back to that role's own login page.
+    • Every protected page inside admin/, trainer/, and member/
+      must include an auth.php guard at the very top that checks
+      the session and redirects to the correct login page if the
+      user is not authenticated.
+
+
+--- Member Login Special Case (Expired Membership) ---
+    See the full flow in Section 8. In short: a member with an
+    Active status goes straight to member/index.php. A member
+    with an Expired status is redirected instead to a restricted
+    "Membership Expired" experience — never the full dashboard.
+
+
+======================================================
+SECTION 7 — ONLINE MEMBER REGISTRATION & APPROVAL SYSTEM
+======================================================
+
+
+The site supports TWO ways to create a member:
+
+
+--------------------------------------------------
+METHOD 1 — Online Registration Request (register.php)
+--------------------------------------------------
+A visitor who is not yet a member fills out register.php. This
+does NOT create a member account. It only creates a pending
+request.
+
+
+Form fields:
+    • Full Name
+    • Gender
+    • Date of Birth
+    • Phone Number
+    • Email Address
+    • Address
+    • Emergency Contact
+    • Preferred Membership Plan (Standard / Premium / Elite)
+    • Membership Duration (1 / 3 / 6 / 12 Months)
+    • Username
+    • Password (with eye icon toggle)
+
+
+On submit:
+    • Insert the row into the `requested_members` table with
+      status = 'Pending'.
+    • Show the visitor a confirmation message:
+          "Your membership request has been submitted successfully.
+          Our team will contact you shortly."
+    • No account is active yet. The submitted username/password
+      cannot log in until approved.
+
+
+--------------------------------------------------
+ADMIN SIDE — Managing Registration Requests
+--------------------------------------------------
+Sidebar item: Requests -> Registration Requests
+(admin/request/registration_request/requests.php)
+
+
+Dashboard summary card: "Pending Registration Requests" with a live
+count.
+
+
+List page columns:
+    Request ID | Full Name | Phone | Email | Selected Plan |
+    Selected Duration | Request Date | Status | Action
+
+
+Action buttons: View, Approve, Reject.
+
+
+View Request page shows every field submitted by the visitor
+(photo optional, full name, gender, DOB, phone, email, address,
+emergency contact, selected plan, selected duration, username,
+request date, status).
+
+
+Approve Request:
+    1. Copy all matching fields from `requested_members` into the
+       `members` table.
+    2. Automatically calculate:
+           membership_start_date = today's date
+           membership_expiry_date = start date + selected duration
+    3. Set members.status = 'Active'.
+    4. Record approved_date and approved_by (admin id) on the
+       request row.
+    5. Update the request's status to 'Approved' (keep the row for
+       history instead of deleting it).
+    6. members.created_method = 'Request'.
+    7. The visitor can now log in successfully with the username/
+       password they chose.
+
+
+Reject Request:
+    • Set the request status to 'Rejected'. Keep it stored for
+      history. A rejected request cannot log in and does not
+      create a member row.
+
+
+--------------------------------------------------
+METHOD 2 — Admin Direct Add (admin/member/add-member.php)
+--------------------------------------------------
+The admin can also create a member manually at any time, without
+any request/approval step. Filling and saving the Add Member form
+inserts directly into `members` with created_method = 'Admin' and
+status = 'Active' immediately. Both methods must ultimately produce
+the exact same shape of row in the `members` table — only the
+`created_method` value differs.
+
+
+--------------------------------------------------
+Login Rule
+--------------------------------------------------
+Only rows inside `members` with status = 'Active' can log in.
+Rows inside `requested_members` (regardless of status) can never
+log in directly — they must first be approved by the admin.
+
+
+======================================================
+SECTION 8 — MEMBERSHIP RENEWAL & APPROVAL SYSTEM
+======================================================
+
+
+Members table naming: use `membership_start_date` and
+`membership_expiry_date` (not "Joining Date") so renewal logic
+stays unambiguous.
+
+
+When a member is approved/added:
+    membership_start_date = approval/joining date
+    membership_expiry_date = start date + selected duration
+
+
+--------------------------------------------------
+Member Login Flow (must be implemented exactly like this)
+--------------------------------------------------
+
+
+    MEMBER LOGIN
+        |
+        v
+    Username & Password correct?
+        No -> show "Invalid login" error, stay on login.php
+        Yes -> check members.status
+                  |
+        +---------+---------+
+        | |
+     Active Expired
+        | |
+        v v
+  member/index.php Check renewal_requests table for
+  (full dashboard) a row belonging to this member
+                            |
+              +-------------+-------------+
+              | |
+       No renewal request Renewal request exists
+              | |
+              v v
+   member/expired.php Check that request's status
+   (Membership Expired page) |
+                                +----------+----------+
+                                | |
+                             Pending Rejected
+                                | |
+                                v v
+                     member/renew-status.php member/expired.php
+                     (Renewal Status page) (Renewal Rejected —
+                                                 show Renew button
+                                                 again)
+
+
+--------------------------------------------------
+member/expired.php — "Membership Expired" Page
+--------------------------------------------------
+No sidebar, no dashboard cards, no announcements, no batch info.
+Only this content:
+
+
+    MEMBERSHIP EXPIRED
+    Hello, [Member Name]
+    Your membership expired on [expiry date].
+    Your membership is currently inactive.
+    Please submit a renewal request to continue using Gym-Pro
+    services.
+
+
+    [ Renew Membership ] [ Logout ]
+
+
+--------------------------------------------------
+member/renew-request.php — Submit Renewal Request
+--------------------------------------------------
+Clicking "Renew Membership" opens a simple form:
+
+
+    Select Plan : Standard / Premium / Elite
+    Select Duration : 1 / 3 / 6 / 12 Months
+
+
+    [ Submit Renewal Request ]
+
+
+On submit, insert a row into `renewal_requests` with status =
+'Pending', then show:
+
+
+    "Your renewal request has been submitted successfully.
+    Current Status: Pending Admin Approval.
+    Please wait until the administrator approves your request."
+
+
+The member can now only Logout, or log back in later to check
+status via renew-status.php (see flow above). Do not allow a
+member to submit a second renewal request while one is still
+Pending — always route them to renew-status.php instead of the
+form if a Pending request already exists for them.
+
+
+--------------------------------------------------
+member/renew-status.php — Pending Renewal Status Page
+--------------------------------------------------
+    MEMBERSHIP EXPIRED
+    Your renewal request has already been submitted.
+    Status: Pending Admin Approval
+    Please wait for the administrator's response.
+
+
+    [ Logout ]
+
+
+--------------------------------------------------
+Admin Side — Managing Renewal Requests
+--------------------------------------------------
+Sidebar item: Requests -> Renewable Requests
+(admin/request/renewable_request/requests.php)
+
+
+List columns: Request ID | Member Name | Current Plan | Requested
+Plan | Requested Duration | Request Date | Status | Action
+
+
+Approve:
+    1. Recalculate:
+           membership_start_date = today's date (the renewal date,
+                                     NOT the old joining date)
+           membership_expiry_date = start date + requested duration
+    2. Update the member's plan to the requested plan.
+    3. Set members.status = 'Active'.
+    4. Set the renewal_requests row's status to 'Approved'.
+    Example:
+        Old expiry: 31 Jan 2026, Renewed: 13 Feb 2026
+        -> new start date: 13 Feb 2026, new expiry: 12 Mar 2026
+        (no overlap confusion, always calculated from the renewal
+        date, never the old expiry date)
+
+
+Reject:
+    • Set the renewal_requests row's status to 'Rejected'. The
+      member sees the Membership Expired page again with the Renew
+      Membership option available once more (Section 8 flow above).
+
+
+Admin can also manually renew any member directly from
+admin/member/renew-member.php (same discount calculation logic,
+no approval flow needed since the admin is doing it themselves).
+
+
+======================================================
+SECTION 9 — TRAINER & BATCH MANAGEMENT SYSTEM
+======================================================
+
+
+Recommended build order (keeps the database and logic simple):
+    Step 1: Admin adds Trainers.
+    Step 2: Admin creates Batches and assigns one or more trainers
+            to each batch.
+    Step 3: Admin adds a Member and assigns that member a
+            Membership Plan + a Batch (the batch already carries a
+            fixed time and trainer, so there is no separate "select
+            time" field needed on the member form).
+
+
+--------------------------------------------------
+Trainer Management (admin/trainer/)
+--------------------------------------------------
+Add Trainer fields:
+    Trainer ID (Auto) | Full Name | Gender | Date of Birth |
+    Phone Number | Email | Address | Specialization
+    (e.g. Yoga, Cardio, Strength Training, Zumba, Group Workout) |
+    Salary | Joining Date | Status (Active/Inactive) | Photo
+
+
+Trainer List columns:
+    Trainer ID | Photo | Name | Specialization | Shift | Status |
+    Action (View / Edit / Delete)
+
+
+Edit Trainer: admin may update phone, address, specialization,
+salary, shift, and status.
+
+
+Delete Trainer rule:
+    Before deleting, check whether the trainer is assigned to any
+    batch (via batch_trainers). If assigned, block the deletion
+    and show:
+        "Cannot delete trainer. This trainer is assigned to active
+        batches. Please reassign or remove the trainer from those
+        batches first."
+
+
+View Trainer Details shows: name, specialization, status, list of
+assigned batches with their time, and total member count across
+those batches.
+
+
+--------------------------------------------------
+Batch Management (admin/batch/)
+--------------------------------------------------
+Batch Management means creating gym class "batches" (think of it
+like a school timetable). Each batch has:
+    Activity | Trainer(s) | Time | Maximum Members | Assigned
+    Members
+
+
+Add Batch fields:
+    Batch Name | Activity | Trainer (selected from the existing
+    Trainer list — trainer's specialization should match the
+    batch's activity) | Start Time | End Time | Maximum Members |
+    Description | Status
+
+
+Batch List columns:
+    Batch | Activity | Trainer | Time | Members (e.g. "18/20")
+
+
+Batch Details (view-batch.php) shows batch name, trainer(s),
+activity, time, and the full list of assigned members.
+
+
+Assignment Rules (must be enforced with validation, not just UI):
+    Rule 1 — One trainer CAN handle many batches (e.g. Priya can
+             teach Morning Yoga at 6 AM and Evening Yoga at 5 PM).
+             Allowed.
+    Rule 2 — One trainer CANNOT handle two batches scheduled at the
+             exact same time. Not allowed.
+    Rule 3 — One member CANNOT join two batches scheduled at the
+             exact same time. Not allowed.
+    Rule 4 — One batch cannot exceed its maximum member capacity.
+             If Max = 20 and 20 are already assigned, block adding
+             a 21st member to that batch.
+    Rule 5 — A member whose membership status is Expired cannot be
+             newly assigned to (or continue attending) a batch
+             until their membership is renewed and Active again.
+
+
+--------------------------------------------------
+How a Member Gets a Batch
+--------------------------------------------------
+On the Add Member form (admin) and on the Registration Request
+form (public), the Batch is selected from a dropdown populated from
+the batches table (only Active batches, filtered so full batches
+are visibly marked or disabled). Selecting a batch automatically
+implies its trainer(s) and time — no separate time field is shown.
+
+
+======================================================
+SECTION 10 — ADMIN PANEL (admin/)
+======================================================
+
+
+--------------------------------------------------
+Admin Sidebar
+--------------------------------------------------
+    🏠 Dashboard
+    👥 Member Management
+         ├── Add Member
+         ├── Member List
+         ├── Edit Member
+         ├── Delete Member
+         └── Renew Membership
+    🏋️ Trainer Management
+         ├── Add Trainer
+         ├── Trainer List
+         ├── Edit Trainer
+         └── Delete Trainer
+    📅 Batch Management
+         ├── Add Batch
+         ├── Batch List
+         ├── Assign Members / Trainers
+         ├── Edit Batch
+         └── Delete Batch
+    🏋️ Equipment
+         ├── Add Equipment
+         ├── Equipment List
+         ├── Edit Equipment
+         └── Delete Equipment
+    📢 Announcements
+    📥 Requests
+         ├── Registration Requests
+         └── Renewable Requests
+    ⚙️ Settings
+    🌐 View Public Website (opens in new tab)
+    🚪 Logout
+
+
+--------------------------------------------------
+1. Dashboard (admin/index.php)
+--------------------------------------------------
+Summary cards:
+    • Total Members
+    • Active Members
+    • Expired Memberships
+    • Total Trainers
+    • Pending Registration Requests
+    • Pending Renewal Requests
+    • Total Equipment
+
+
+Charts (use Chart.js or similar, via CDN):
+    • Members by Gender (Male vs Female) — doughnut/pie chart
+    • Trainer Specialization breakdown OR Trainer vs Receptionist
+      vs Cashier if a generic staff-type breakdown is kept — bar
+      chart
+
+
+Recent Announcements panel (latest 3, with a "Manage" link).
+
+
+--------------------------------------------------
+2. Member Management
+--------------------------------------------------
+Add Member fields:
+    Member ID (Auto) | Photo | Full Name | Gender | DOB | Phone |
+    Email | Address | Emergency Contact | Membership Plan |
+    Duration | Batch (dropdown) | Membership Start Date | Username |
+    Password (with eye icon) | Status
+
+
+Member List columns:
+    Photo | Member ID | Name | Phone | Plan | Batch (with time) |
+    Expiry Date | Status | Action (View / Edit / Delete / Renew)
+
+
+Renew Membership (admin-side manual renewal): select new Plan and
+Duration, auto-calculate the discount and final amount, update
+membership_start_date and membership_expiry_date, set status back
+to Active.
+
+
+Membership expiry must be calculated automatically from start date
++ duration, and status must automatically flip to "Expired" once
+the expiry date has passed (checked on dashboard/list load, same as
+the earlier version of this project).
+
+
+--------------------------------------------------
+3. Trainer Management
+--------------------------------------------------
+Same CRUD pattern as Member Management (Add / Edit / Delete / View)
+using the fields defined in Section 9, plus the delete-block rule
+described there.
+
+
+--------------------------------------------------
+4. Batch Management
+--------------------------------------------------
+Add / Edit / Delete / View Batch, plus an "Assign Members" screen
+per batch, all using the fields and rules from Section 9.
+
+
+--------------------------------------------------
+5. Equipment
+--------------------------------------------------
+Fields: Equipment Name | Quantity | Purchase Date | Condition
+(dropdown: New / Good / Needs Repair / Old) | Vendor Name | Vendor
+Location | Vendor Mobile Number.
+Buttons: Add / Edit / Delete.
+
+
+--------------------------------------------------
+6. Announcements
+--------------------------------------------------
+Admin writes: Title | Description | Publish Date.
+Examples: "Gym Closed Tomorrow", "Holiday Notice", "New Trainer
+Joined". Visible to Trainer and Member panels and (optionally) as
+a preview on the public Home page.
+
+
+--------------------------------------------------
+7. Requests
+--------------------------------------------------
+Registration Requests and Renewable Requests exactly as described
+in Section 7 and Section 8.
+
+
+--------------------------------------------------
+8. Settings
+--------------------------------------------------
+Admin Change Password (current password, new password, confirm
+new password — verify current password with password_verify()
+before allowing the change).
+
+
+--------------------------------------------------
+9. Logout
+--------------------------------------------------
+Simple logout — destroy session, redirect to admin/login.php.
+
+
+--------------------------------------------------
+General Admin Notes
+--------------------------------------------------
+• The whole admin/ folder must have its own header, sidebar,
+  topbar, and footer includes (admin/includes/), and its own
+  css/js — do not import anything from the public site's includes.
+• "View Public Website" button is available from the sidebar,
+  opens in a new tab, and never disturbs the admin session.
+• The public site is never affected by anything happening inside
+  admin/.
+
+
+======================================================
+SECTION 11 — TRAINER PANEL (trainer/)
+======================================================
+
+
+--------------------------------------------------
+Trainer Sidebar
+--------------------------------------------------
+    🏋 Dashboard
+    📁 My Batches
+    👤 My Profile
+    🗓 Today's Schedule
+    👥 Assigned Members
+    📝 Workout Plans
+    📢 Announcements
+    🔑 Change Password
+    🌐 View Public Website (new tab)
+    🚪 Logout
+
+
+--------------------------------------------------
+1. Dashboard (trainer/index.php)
+--------------------------------------------------
+Summary cards:
+    • Total Batches
+    • Total Assigned Members
+    • Today's Batches
+
+
+--------------------------------------------------
+2. My Batches
+--------------------------------------------------
+Shows only batches assigned to the logged-in trainer:
+    Batch | Activity | Time | Members (e.g. "38 Members")
+Clicking a batch opens its details (activity, time, member list).
+
+
+--------------------------------------------------
+3. My Profile
+--------------------------------------------------
+Display only (read-only, except an optional "Edit Profile" for
+contact details): Trainer ID | Photo | Name | Gender | Phone |
+Email | Address | Specialization | Joining Date | Status.
+
+
+--------------------------------------------------
+4. Today's Schedule
+--------------------------------------------------
+List of today's batches assigned to this trainer with time and
+member count, e.g.:
+    6:00 AM - 7:00 AM | Morning Yoga | 18 Members
+    5:00 PM - 6:00 PM | Evening Yoga | 16 Members
+
+
+--------------------------------------------------
+5. Assigned Members
+--------------------------------------------------
+Shows only members who belong to this trainer's batches:
+    Member ID | Name | Batch | Membership Status
+View-only — no Edit or Delete buttons here (those remain
+admin-only actions).
+
+
+--------------------------------------------------
+6. Workout Plans (one plan PER BATCH, not per member)
+--------------------------------------------------
+The trainer creates ONE workout schedule per batch they manage
+(not per individual member — this keeps the data model simple).
+Example (Morning Exercise batch):
+    Monday: Chest | Tuesday: Back | Wednesday: Legs |
+    Thursday: Shoulders | Friday: Cardio | Saturday: Full Body |
+    Sunday: Rest
+Button: "Save Workout Plan". Every member inside that batch will
+see this exact schedule on their own "My Batch" page (Section 12).
+A trainer may only create/edit workout plans for batches assigned
+to them — never for another trainer's batch.
+
+
+--------------------------------------------------
+7. Announcements
+--------------------------------------------------
+Trainer can read all admin announcements. Optionally, allow the
+trainer to post announcements scoped only to their own batch(es),
+e.g. "Tomorrow Yoga class starts at 6:30 AM. Bring your yoga mat."
+
+
+--------------------------------------------------
+8. Change Password
+--------------------------------------------------
+Current Password | New Password | Confirm New Password.
+
+
+--------------------------------------------------
+9. Logout
+--------------------------------------------------
+Simple logout — destroy session, redirect to trainer/login.php.
+
+
+--------------------------------------------------
+General Trainer Notes
+--------------------------------------------------
+• trainer/ has its own header, sidebar, topbar, and footer
+  includes, and its own css/js, self-contained like admin/.
+• Trainers CANNOT add/edit/delete members, manage other trainers,
+  manage equipment, or access Settings/Requests — those remain
+  Admin-only.
+
+
+======================================================
+SECTION 12 — MEMBER PANEL (member/)
+======================================================
+
+
+--------------------------------------------------
+Member Sidebar (only visible when status = Active)
+--------------------------------------------------
+    🏠 Dashboard
+    👤 My Profile
+    🏋️ My Membership
+    📁 My Batch (replaces a generic "Workout Plan" menu
+                           item — shows batch info + that batch's
+                           workout schedule together)
+    📢 Announcements
+    🔑 Change Password
+    🌐 View Public Website (new tab)
+    🚪 Logout
+
+
+If the member's status is Expired, do NOT show this sidebar or any
+dashboard at all — route them through the flow in Section 8
+(expired.php / renew-request.php / renew-status.php) instead.
+
+
+--------------------------------------------------
+1. Dashboard (member/index.php) — Active members only
+--------------------------------------------------
+    Hello, [Member Name] 👋
+
+
+    ---------------------------------
+    Membership : [Plan Name]
+    Status : Active
+    Valid Till : [Expiry Date]
+    ---------------------------------
+
+
+    Quick Buttons:
+        ✔ View Membership
+        ✔ View My Batch
+    Latest announcements shown directly on this dashboard.
+
+
+--------------------------------------------------
+2. My Profile
+--------------------------------------------------
+Read-only. Display: Member ID | Name | Gender | Date of Birth |
+Phone | Email | Address | Emergency Contact | Membership Start
+Date | Membership Expiry Date | Batch.
+A member cannot edit their own profile details here — only their
+password, via Change Password.
+
+
+--------------------------------------------------
+3. My Membership
+--------------------------------------------------
+Display: Plan (e.g. Elite) | Price (e.g. ₹2000/month) | Duration
+(e.g. 6 Months) | Discount applied (e.g. 25%) | Final price paid
+(calculated using the exact same discount rules from Section 5) |
+Membership Start Date | Membership Expiry Date | Membership Status
+| Facilities Included (the same list defined for that plan in
+Section 5).
+
+
+--------------------------------------------------
+4. My Batch
+--------------------------------------------------
+Show:
+    Batch Name | Time | Trainer(s) assigned to that batch
+    Weekly Workout Schedule for that batch (as created by the
+    trainer in Section 11 point 6) — e.g.:
+        Monday: Chest + Triceps
+        Tuesday: Back + Biceps
+        Wednesday: Legs
+        Thursday: Shoulders
+        Friday: Cardio
+        Saturday: Abs
+The member sees ONLY the schedule that belongs to their own
+assigned batch — never any other batch's schedule.
+
+
+--------------------------------------------------
+5. Announcements
+--------------------------------------------------
+Read-only list of all admin (and relevant trainer) announcements,
+e.g. "Gym Closed on Independence Day", "New Yoga Batch",
+"Membership Offer", "Holiday Notice".
+
+
+--------------------------------------------------
+6. Change Password
+--------------------------------------------------
+Current Password | New Password | Confirm New Password (with eye
+icon toggles on all three fields).
+
+
+--------------------------------------------------
+7. Logout
+--------------------------------------------------
+Simple logout — destroy session, redirect to login.php.
+
+
+--------------------------------------------------
+Expired-Membership Pages (no sidebar, no dashboard — see Section 8
+for the full flow and exact page content)
+--------------------------------------------------
+    • member/expired.php
+    • member/renew-request.php
+    • member/renew-status.php
+
+
+--------------------------------------------------
+General Member Notes
+--------------------------------------------------
+• member/ has its own header, sidebar, topbar, and footer
+  includes, and its own css/js, self-contained like admin/ and
+  trainer/.
+
+
+======================================================
+SECTION 13 — ROLE PERMISSIONS MATRIX
+======================================================
+
+
+Admin CAN:
+    Everything — full CRUD on Members, Trainers, Batches,
+    Equipment, Announcements; approve/reject Registration and
+    Renewal requests; change own password; view public site.
+
+
+Trainer CAN:
+    View own profile and edit own contact details; view own
+    batches; view today's schedule; view members inside own
+    batches (view only); create/edit workout plans for own batches
+    only; read announcements (optionally post batch-scoped ones);
+    change own password; view public site.
+
+
+Trainer CANNOT:
+    Add/Edit/Delete Members; Add/Edit/Delete other Trainers; manage
+    Equipment; manage Settings beyond own password; approve/reject
+    any request; manage batches they are not assigned to.
+
+
+Member CAN:
+    View own profile (read-only); view own membership details;
+    view own batch and its workout schedule; view announcements;
+    change own password; submit a renewal request when expired;
+    view public site.
+
+
+Member CANNOT:
+    Add Members; Delete Members; Edit other Members; access Trainer
+    Management; access Equipment Management; access Batch
+    Management (creation/assignment); access Settings/Requests;
+    view any batch's workout schedule other than their own.
+
+
+======================================================
+SECTION 14 — DATABASE DESIGN
+======================================================
+
+
+Database Name: gym_pro
+Generate one complete .sql file that creates every table below and
+inserts realistic sample data into each one (at least 2-3 sample
+rows per table), ready to import directly into phpMyAdmin on XAMPP
+or WAMP.
+
+
+1) admins
+    admin_id (PK, auto) | username | password (hashed) | full_name
+    | created_at
+
+
+2) trainers
+    trainer_id (PK, auto) | full_name | gender | dob | phone |
+    email | address | specialization | salary | joining_date |
+    status (Active/Inactive) | photo | username | password (hashed)
+
+
+3) batches
+    batch_id (PK, auto) | batch_name | activity | start_time |
+    end_time | max_members | description | status
+
+
+4) batch_trainers (many-to-many: one batch can have several
+                     trainers, one trainer can be in several
+                     batches)
+    id (PK, auto) | batch_id (FK) | trainer_id (FK)
+
+
+5) membership_plans
+    plan_id (PK, auto) | plan_name (Standard/Premium/Elite) |
+    monthly_price | features (text — store as comma separated or
+    one row per feature in a small child table, whichever is
+    simpler to code)
+
+
+6) members
+    member_id (PK, auto) | member_code (e.g. GM0001) | photo |
+    full_name | gender | dob | phone | email | address |
+    emergency_contact | plan_id (FK) or plan name |
+    duration_months | batch_id (FK) | membership_start_date |
+    membership_expiry_date | username | password (hashed) |
+    status (Active/Expired/Inactive) | created_by | created_method
+    (Request / Admin) | created_at
+
+
+7) requested_members
+    request_id (PK, auto) | full_name | gender | dob | phone |
+    email | address | emergency_contact | membership_plan |
+    duration | batch_id (FK, nullable) | username | password
+    (hashed) | status (Pending/Approved/Rejected) | request_date |
+    approved_date | approved_by (FK to admins, nullable)
+
+
+8) renewal_requests
+    renewal_id (PK, auto) | member_id (FK) | current_plan |
+    requested_plan | requested_duration | status
+    (Pending/Approved/Rejected) | request_date | approved_date |
+    approved_by (FK to admins, nullable)
+
+
+9) equipment
+    equipment_id (PK, auto) | equipment_name | quantity |
+    purchase_date | condition_status (New/Good/Needs Repair/Old) |
+    vendor_name | vendor_location | vendor_mobile
+
+
+10) announcements
+    announcement_id (PK, auto) | title | description | publish_date
+    | posted_by_role (Admin/Trainer) | posted_by_id
+
+
+11) workout_plans (one plan per batch, per weekday)
+    workout_id (PK, auto) | batch_id (FK) | day_name | focus_area |
+    details
+
+
+12) attendance (optional/simple — one row per member per batch
+                 session, useful for a basic attendance report)
+    attendance_id (PK, auto) | member_id (FK) | batch_id (FK) |
+    date | status (Present/Absent)
+
+
+13) settings
+    setting_id (PK, auto) | setting_key | setting_value
+    (generic key-value table for small site-wide settings, e.g.
+    gym contact info, if needed later)
+
+
+Relationships to respect:
+    • batch_trainers links batches <-> trainers (many-to-many)
+    • members.batch_id links to batches (one batch, many members)
+    • renewal_requests.member_id links to members
+    • requested_members.batch_id links to batches (nullable, set
+      when the visitor picks a batch during registration)
+    • workout_plans.batch_id links to batches (one batch, up to 7
+      day rows)
+    • attendance.member_id and attendance.batch_id link to members
+      and batches
+
+
+======================================================
+SECTION 15 — SECURITY REQUIREMENTS
+======================================================
+
+
+• Use prepared statements (bind_param / bound parameters) for every
+  query touching user input — no exceptions.
+• Hash every password with PHP's password_hash() and verify with
+  password_verify() — never store plain text passwords, for
+  Admins, Trainers, or Members.
+• Use PHP Sessions for authentication on every protected page.
+• Every protected page must confirm the session before rendering
+  any content.
+• Logout must fully destroy the session (session_unset() +
+  session_destroy()) and redirect to the correct login page.
+• Escape all output with htmlspecialchars() where user-supplied
+  data is displayed, to prevent basic XSS.
+• Validate required fields server-side, not just with HTML
+  "required" attributes.
+
+
+======================================================
+SECTION 16 — ADDITIONAL UX RULES (SUMMARY)
+======================================================
+
+
+• Every navigation link, form submission, and button opens in the
+  SAME tab (except the one "View Public Website" shortcut inside
+  the Admin/Trainer/Member panels, which opens in a new tab).
+• Every password field has a working eye-icon show/hide toggle.
+• No "Join Now" button anywhere on the public site — always show
+  "Visit our gym or contact us to become a member." plus a
+  "Register" link to register.php instead.
+• A visitor becomes a member only after Admin approval (Method 1)
+  or direct Admin creation (Method 2) — never automatically.
+• An expired member is fully blocked from the normal dashboard
+  until their renewal is approved — they only ever see the
+  Membership Expired / Renewal Status pages described in Section 8.
+• A trainer only ever sees data belonging to their own batches —
+  never another trainer's batches, members, or workout plans.
+• A member only ever sees their own profile, membership, and their
+  own batch's workout schedule — never any other member's or
+  batch's data.
+
+
+======================================================
+SECTION 17 — STEP-BY-STEP OUTPUT FORMAT
+======================================================
+
+
+Do NOT generate the entire project in one response. Generate it
+step by step, in the order below. Before each step, briefly confirm
+what will be built in that step. Every generated file must show its
+complete filename (with full relative path) directly above its
+code block. Check each file for correctness before moving to the
+next step. Do not skip any file listed in Section 2.
+
+
+    Step 1 — Complete Folder Structure (as a file tree, matching
+              Section 2 exactly)
+    Step 2 — Database: full gym_pro.sql file (all 13 tables from
+              Section 14, with sample data)
+    Step 3 — Public Website: includes/ (header, navbar, footer,
+              config), css/style.css, js/script.js, index.php,
+              about.php, gallery.php, contact.php
+    Step 4 — Public Login/Register: login.php, register.php,
+              logout.php (member-facing), plus the admin/trainer
+              "Settings" login-selection screen
+    Step 5 — Admin Login & Layout: admin/login.php,
+              admin/logout.php, admin/includes/ (header, sidebar,
+              topbar, footer, auth), admin/css, admin/js
+    Step 6 — Admin Dashboard: admin/index.php with summary cards
+              and charts
+    Step 7 — Admin Member Module: everything under admin/member/
+    Step 8 — Admin Trainer Module: everything under admin/trainer/
+    Step 9 — Admin Batch Module: everything under admin/batch/
+    Step 10 — Admin Equipment Module: everything under
+              admin/equipment/
+    Step 11 — Admin Announcements Module: everything under
+              admin/announcement/
+    Step 12 — Admin Requests Module: everything under
+              admin/request/registration_request/ and
+              admin/request/renewable_request/
+    Step 13 — Admin Settings: admin/settings/settings.php
+    Step 14 — Trainer Panel: trainer/login.php, trainer/logout.php,
+              trainer/includes/, trainer/index.php, trainer/batch/,
+              trainer/profile.php, trainer/my-members.php,
+              trainer/today-schedule.php, trainer/workout-plan.php,
+              trainer/announcements.php,
+              trainer/settings/change-password.php
+    Step 15 — Member Panel: member/index.php, member/profile.php,
+              member/membership.php, member/my-batch.php,
+              member/announcement.php, member/change-password.php,
+              member/logout.php
+    Step 16 — Member Expired-Membership Flow: member/expired.php,
+              member/renew-request.php, member/renew-status.php
+    Step 17 — Final Testing: walk through every user flow described
+              in Sections 6, 7, 8, and 13 end-to-end (registration
+              -> approval -> login, expiry -> renewal request ->
+              approval -> login, trainer batch/workout assignment,
+              admin CRUD on every module) and confirm nothing is
+              missing or broken before final delivery.
+
+
+======================================================
+END OF MASTER PROMPT
+======================================================
+
+
+1. Add default data rules (Recommended)
+Your prompt asks for sample data, but you should clearly state which tables must always contain default records. �
+Defination.txt
+Example:
+membership_plans → Always insert Standard, Premium, and Elite.
+admins → Create one default admin account.
+settings → Insert default gym name, address, email, phone.
+Other tables → Sample data only.
+
+
+2.Username Rules
+Add:
+Username must be unique for Admin, Trainer, and Member.
+Email must be unique.
+Phone number must be unique.
+Currently this isn't explicitly stated.
+
+
+3.Delete Rules
+You defined trainer deletion well. �
+Defination.txt
+Also define:
+Cannot delete a batch if members are assigned.
+Cannot delete a membership plan if members use it.
+Cannot delete announcements that are system-critical (if any).
+
+
+4.Dashboard Counts
+Mention that all dashboard cards update automatically after CRUD operations.
+
+
+5.Error & Success Messages
+Specify that every action should display clear feedback, for example:
+Member added successfully.
+Renewal approved successfully.
+Username already exists.
+Batch is full.
+Invalid login credentials.
+
+
+Add all this feature and make site as i give definition 
+Give me all file for my whole project create all folder and files for making my project best.
+Give me whole project step by step
