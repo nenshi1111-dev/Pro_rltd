@@ -1,0 +1,197 @@
+i make my project in cyber crime so i want my first page in home page ,
+Report Incident ,Track Stats ,Records,Contact Us ,About Us all pages .
+ 
+first page in display all pages and "welcome to cyber crime reportin" in main section 
+and funcasnality see , helpline number .
+  
+home page and first page is same 
+   
+Report Incidents in user compline and add they documents for proof 
+
+track stuts in user track her stats  and display pie chart and dia gram for 
+solve case , resolve case , pandding case and one unother pie chart and dia 
+gram it's display state ways  and Monthly Complaints Trend (Last 12 Months) 
+,Resolution Rate Over Time , Average Resolution Time (Days) ,Crime Type Trends Over Time
+, Complaints by Crime Type , Suspects by Status.
+ 
+ 
+i want any user compine they case then after they can send notifaction for it's 
+case prupose and user can also send notification for they answering .
+
+i want specific user can see Suspects details that include by admin 
+some cyber crime awernace tips and how can people protect againts crime.  
+
+   
+  
+cyber-crime-system/
+¦
++-- config/
+¦   +-- database.php                 # DB connection
+¦
++-- includes/
+¦   +-- header.php                   # Common HTML header
+¦   +-- footer.php                   # Common HTML footer
+¦   +-- auth.php                     # Session & auth helpers
+¦   +-- functions.php                # Utility functions
+¦   +-- sidebar_admin.php            # Admin sidebar navigation
+¦
++-- admin/
+¦   +-- index.php                    # Admin dashboard
+¦   +-- login.php                    # Admin login
+¦   +-- logout.php                   # Admin logout
+¦   +-- categories.php               # Manage categories (CRUD)
+¦   +-- complaints.php               # Manage complaints (CRUD)
+¦   +-- complaint_view.php           # View single complaint
+¦   +-- users.php                    # Manage registered users
+¦   +-- reports.php                  # View reports/stats
+¦
++-- user/
+¦   +-- index.php                    # User dashboard
+¦   +-- login.php                    # User login
+¦   +-- register.php                 # User registration
+¦   +-- logout.php                   # User logout
+¦   +-- complaint_new.php            # Submit new complaint
+¦   +-- complaint_view.php           # View own complaint
+¦   +-- complaints.php               # List own complaints
+¦   +-- profile.php                  # View/edit profile
+¦
++-- assets/
+¦   +-- css/
+¦   ¦   +-- style.css                # Main stylesheet
+¦   +-- js/
+¦       +-- script.js                # JavaScript (optional)
+¦
++-- uploads/
+¦   +-- complaints/                  # Evidence/attachment uploads
+¦
++-- index.php                        # Landing page / login redirect
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cyber-crime-system/
+¦
++-- config/
+¦   +-- database.php                 # Database connection (PDO/MySQL)
+¦   +-- constants.php                # Global configurations & application constants
+¦
++-- includes/
+¦   +-- header.php                   # Common HTML header & navigation list
+¦   +-- footer.php                   # Common HTML footer & emergency helplines
+¦   +-- auth.php                     # Session, role-checking, & login state helpers
+¦   +-- functions.php                # Utility functions (file uploads, notifications)
+¦   +-- sidebar_admin.php            # Admin sidebar navigation menu
+¦   +-- sidebar_user.php             # User dashboard sidebar navigation menu
+¦
++-- admin/                           # ================= ADMIN SECTION =================
+¦   +-- dashboard/
+¦   ¦   +-- index.php                # Main Admin Dashboard (KPI metrics, quick stats)
+¦   ¦   +-- analytics.php            # Deep-dive analytics, state-wise & monthly trends
+¦   ¦   +-- activity_logs.php        # System audit trails and recent actions
+¦   +-- login.php                    # Admin secure login interface
+¦   +-- logout.php                   # Admin session destroy script
+¦   +-- categories/
+¦   ¦   +-- index.php                # Manage crime categories (CRUD)
+¦   ¦   +-- add.php                  # Add new crime category
+¦   ¦   +-- edit.php                 # Edit crime category
+¦   +-- complaints/
+¦   ¦   +-- index.php                # Manage all submitted complaints (Table view)
+¦   ¦   +-- view.php                 # View specific complaint & uploaded proof files
+¦   ¦   +-- update_status.php        # Change status (Pending, Resolved, Solved)
+¦   ¦   +-- assign_officer.php       # Assign complaints to specialized investigative units
+¦   +-- suspects/
+¦   ¦   +-- index.php                # Manage database of suspects
+¦   ¦   +-- add.php                  # Add new suspect profile & details
+¦   ¦   +-- edit.php                 # Edit suspect status & records
+¦   ¦   +-- delete.php               # Archive/delete suspect record
+¦   +-- users/
+¦   ¦   +-- index.php                # View and manage registered citizens/users
+¦   ¦   +-- view.php                 # View user profile and history
+¦   ¦   +-- block.php                # Block/unblock suspicious user accounts
+¦   +-- notifications/
+¦       +-- broadcast.php            # Send system-wide or targeted notifications
+¦       +-- logs.php                 # Track sent communication history
+¦
++-- user/                            # ================= USER SECTION =================
+¦   +-- dashboard/
+¦   ¦   +-- index.php                # Main User Dashboard (Active cases overview & shortcuts)
+¦   ¦   +-- profile.php              # View & update personal profile credentials
+¦   ¦   +-- notifications.php        # View alerts, case progress notes, and system updates
+¦   +-- login.php                    # User login interface
+¦   +-- register.php                 # New user registration page
+¦   +-- logout.php                   # User session destroy script
+¦   +-- complaints/
+¦   ¦   +-- index.php                # List of all complaints filed by the user
+¦   ¦   +-- new.php                  # Submit new cyber crime complaint + proof file upload
+¦   ¦   +-- view.php                 # View single complaint details, proof, & officer notes
+¦   +-- tracking/
+¦   ¦   +-- track.php                # Search form for tracking complaint status by ID
+¦   ¦   +-- results.php              # Visual diagram & status breakdown for the tracked case
+¦   +-- messaging/
+¦   ¦   +-- inbox.php                # Messages/updates received regarding filed cases
+¦   ¦   +-- reply.php                # Send answers/clarifications back to case handlers
+¦   +-- suspects/
+¦       +-- authorized_view.php      # Restricted page to view suspect profiles added by admin
+¦
++-- public/                          # ================= PUBLIC PAGES =================
+¦   +-- awareness/
+¦   ¦   +-- index.php                # Cyber crime awareness tips & user safety guides
+¦   ¦   +-- protection_guide.php     # How citizens can protect themselves against digital scams
+¦   +-- help/
+¦       +-- helpline.php             # Emergency helpline numbers & cyber cell contacts
+¦       +-- faq.php                  # Frequently asked questions
+¦
++-- assets/
+¦   +-- css/
+¦   ¦   +-- style.css                # Global stylesheet
+¦   ¦   +-- dashboard.css            # Specialized dashboard layouts and tables
+¦   +-- js/
+¦   ¦   +-- script.js                # Core frontend functionality
+¦   ¦   +-- charts.js                # Chart.js scripts for diagrams & pie charts
+¦   +-- images/
+¦       +-- logo.png                 # Application logo
+¦
++-- uploads/
+¦   +-- complaints/                  # Secure folder for user-submitted proof documents
+¦   +-- suspects/                    # Images/files linked to suspect profiles
+¦
++-- index.php                        # Main Landing Page ("Welcome to Cyber Crime Reporting")
+
+Act as an expert full-stack web developer and build a comprehensive "Cyber Crime Reporting System" web application. 
+
+### 1. General Requirements & Navigation
+- The home page and the first/landing page must be the same.
+- The main section of the landing page must prominently display: "Welcome to Cyber Crime Reporting".
+- Include a persistent navigation menu/sidebar that lists out all pages in the application and explicitly shows the total count of pages available.
+- Include quick-access sections for emergency helpline numbers.
+
+### 2. Core Modules & Functionality
+- Home Page / Landing Page: Main welcome banner, quick links, emergency helpline numbers, and an overview of features.
+- User Complaint / Incident Reporting: 
+  - Form allowing users to report cyber crime incidents.
+  - File/document upload functionality to attach proofs (e.g., screenshots, PDFs, images).
+  - Automated notification system triggered once a user successfully files a complaint, and a feature allowing users to send replies/follow-up messages regarding their case.
+- Case Tracking: 
+  - Users can enter their unique tracking ID to check the status of their complaint.
+  - Interactive Dashboard / Visualizations (Charts & Diagrams):
+    - Solved Cases vs. Resolved Cases vs. Pending Cases.
+    - State-wise distribution of complaints.
+    - Monthly Complaints Trend (Last 12 Months).
+    - Resolution Rate Over Time.
+    - Average Resolution Time (Days).
+    - Crime Type Trends Over Time.
+    - Complaints by Crime Type.
+    - Suspects by Status.
+- Suspect Details (Role-Restricted):
+  - A secure page viewable only by specific/authorized users to check suspect details added by the admin.
+- Cyber Crime Awareness & Protection:
+  - Educational section featuring awareness tips and guides on how people can protect themselves against cyber crimes.
+
+### 3. Technical Stack Suggestions
+- Frontend: HTML5, CSS3, JavaScript (or React/Tailwind CSS for a modern UI).
+- Backend: Node.js with Express.js (or Python/Django/Flask).
+- Database: MongoDB or MySQL to store user data, complaints, file metadata, and tracking states.
+- Charts: Chart.js or D3.js for rendering the required diagrams and pie charts.
+- Notifications: In-app notification system or simulated email/SMS notifications for case updates and user replies.
+
+Please provide the folder structure, core code files (frontend, backend, database models), and step-by-step instructions to set up and run the project.
