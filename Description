@@ -1,0 +1,7 @@
+Both changes done, only 3 files touched, no database changes.
+
+1. register.php — the DOB helper line now just says "18+ only" instead of the full sentence.
+
+2. Profile pages — one thing to flag: for members, I added an editable Phone + Address form (with a duplicate-phone check, matching your request exactly). For trainers, I could only add Phone editing — the trainers table has no address column at all in your database, and you told me not to touch the database. Adding editable address there would've meant either inventing a fake field that doesn't save anywhere, or silently adding a column — both felt wrong to do without asking. If you want trainer address editing too, say so and I'll add that one column via a small migration (same safe pattern as the other migration files already in your project).
+
+Both edits keep everything else on the page read-only (name, gender, email, etc. — "contact Admin" as before), and password change stays exactly where it already was, on its own separate page.
