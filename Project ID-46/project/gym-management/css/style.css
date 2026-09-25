@@ -1,0 +1,327 @@
+/* ==========================================================
+   css/style.css
+   Custom theme for Gym-Pro. Bootstrap handles layout/grid;
+   this file gives the site its own visual identity.
+   ========================================================== */
+
+:root {
+    --gym-dark: #14161a;
+    --gym-dark-2: #1e2128;
+    --gym-red: #e63946;
+    --gym-red-dark: #c1121f;
+    --gym-light: #f5f5f5;
+    --gym-gray: #6c757d;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--gym-light);
+    color: #222;
+}
+
+/* ---- Logo badge (used in navbar + all sidebars) ---- */
+.gym-logo-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gym-red);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+    flex-shrink: 0;
+}
+.gym-logo-badge img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
+
+/* ---- Public navbar ---- */
+.gym-navbar {
+    background: var(--gym-dark);
+}
+.gym-navbar .nav-link {
+    color: #ddd;
+    font-weight: 500;
+}
+.gym-navbar .nav-link.active,
+.gym-navbar .nav-link:hover {
+    color: var(--gym-red);
+}
+.btn-gym-primary {
+    background: var(--gym-red);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+}
+.btn-gym-primary:hover {
+    background: var(--gym-red-dark);
+    color: #fff;
+}
+
+/* ---- Hero section (index.php) ---- */
+.gym-hero {
+    background: linear-gradient(rgba(20,22,26,0.85), rgba(20,22,26,0.85)),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600') center/cover no-repeat;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
+.gym-hero h1 {
+    font-weight: 800;
+    font-size: 2.8rem;
+}
+
+/* ---- Generic content sections ---- */
+.section-title {
+    font-weight: 700;
+    border-left: 5px solid var(--gym-red);
+    padding-left: 12px;
+    margin-bottom: 25px;
+}
+.gym-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform .2s ease;
+}
+.gym-card:hover {
+    transform: translateY(-4px);
+}
+
+/* ---- Footer ---- */
+.gym-footer {
+    background: var(--gym-dark);
+    color: #ccc;
+}
+
+/* ---- Auth pages (login/register) ---- */
+.auth-wrapper {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 15px;
+}
+.auth-card {
+    max-width: 480px;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 35px;
+}
+
+/* ---- Password eye-toggle icon ---- */
+.password-wrapper {
+    position: relative;
+}
+.password-wrapper input {
+    padding-right: 40px;
+}
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--gym-gray);
+}
+
+/* ---- Admin / Trainer / Member panel shell (same theme) ---- */
+.panel-sidebar {
+    background: var(--gym-dark);
+    min-height: 100vh;
+    color: #ddd;
+    width: 250px;
+    flex-shrink: 0;
+}
+.panel-sidebar .nav-link {
+    color: #ccc;
+    padding: 10px 18px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+}
+.panel-sidebar .nav-link.active,
+.panel-sidebar .nav-link:hover {
+    background: var(--gym-red);
+    color: #fff;
+}
+.panel-topbar {
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    padding: 12px 20px;
+}
+.panel-content {
+    padding: 25px;
+}
+.panel-hamburger {
+    border: none;
+    background: transparent;
+    color: var(--gym-dark);
+    padding: 4px 8px;
+}
+.panel-hamburger:hover {
+    color: var(--gym-red);
+}
+.panel-bell {
+    border: none;
+    background: transparent;
+    color: var(--gym-dark);
+    padding: 4px 8px;
+}
+.panel-bell:hover {
+    color: var(--gym-red);
+}
+.panel-bell .badge {
+    font-size: 0.6rem;
+}
+.panel-overlay {
+    display: none;
+}
+
+/* ---- Responsive: collapse sidebar to an off-canvas drawer below
+   Bootstrap's lg breakpoint (992px). Above that, the sidebar
+   behaves exactly as it always has (static, always visible). ---- */
+@media (max-width: 991.98px) {
+    .panel-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1050;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        overflow-y: auto;
+    }
+    .panel-sidebar.panel-sidebar-open {
+        transform: translateX(0);
+    }
+    .panel-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 1040;
+    }
+    .panel-overlay.panel-overlay-visible {
+        display: block;
+    }
+    .panel-content {
+        padding: 16px;
+    }
+    .panel-topbar {
+        padding: 10px 14px;
+    }
+    /* Stat cards and gym-cards stack full-width automatically via
+       Bootstrap's col-* grid already in the markup — no change needed. */
+}
+
+.stat-card {
+    border-radius: 12px;
+    color: #fff;
+    padding: 20px;
+}
+.stat-card h3 { font-weight: 800; margin: 0; }
+.stat-card p { margin: 0; opacity: .9; }
+.bg-stat-1 { background: var(--gym-red); }
+.bg-stat-2 { background: #2a9d8f; }
+.bg-stat-3 { background: #457b9d; }
+.bg-stat-4 { background: #e9873e; }
+
+/* ---- Batch picker (register/renewal/admin member forms) ---- */
+.batch-check {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    transition: opacity .15s ease;
+}
+.batch-check-input:disabled ~ .form-check-label {
+    color: #aaa;
+}
+.batch-check:has(.batch-check-input:disabled) {
+    opacity: 0.5;
+    background: #f8f8f8;
+}
+.batch-check:has(.batch-check-input:checked) {
+    border-color: var(--gym-red);
+    background: #fff5f5;
+}
+
+/* ---- Live payment breakdown (register/renewal/admin member forms) ---- */
+.payment-breakdown {
+    border: 2px dashed var(--gym-red);
+    border-radius: 10px;
+    padding: 16px 18px;
+    background: #fff9f9;
+}
+.payment-breakdown h6 {
+    color: var(--gym-red);
+    font-weight: 700;
+}
+.payment-breakdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+.payment-breakdown ul li {
+    padding: 4px 0;
+    border-bottom: 1px dotted #eee;
+    font-size: 0.9rem;
+}
+.payment-breakdown .breakdown-total-row {
+    font-size: 1.1rem;
+    padding-top: 6px;
+}
+
+/* ---- Payment checkout page (member/pending-payment.php) ---- */
+.checkout-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    margin: 20px 0 40px;
+}
+.checkout-header {
+    background: linear-gradient(135deg, var(--gym-dark) 0%, var(--gym-dark-2) 100%);
+    color: #fff;
+    padding: 30px 20px;
+}
+.checkout-body {
+    padding: 28px;
+}
+.checkout-totals {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 16px 20px;
+}
+.checkout-totals > div {
+    padding: 4px 0;
+}
+.checkout-grand-total {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--gym-red);
+}
+#upiQrCode {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+.verification-pending {
+    text-align: center;
+    background: #fffaf0;
+    border: 2px dashed #e9873e;
+    border-radius: 12px;
+    padding: 24px 20px;
+}
+.verification-pending table {
+    max-width: 350px;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 768px) {
+    .gym-hero h1 { font-size: 2rem; }
+    .auth-card { padding: 22px; }
+}

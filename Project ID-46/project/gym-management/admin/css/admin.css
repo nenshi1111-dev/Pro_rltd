@@ -1,0 +1,10 @@
+/* admin/css/admin.css — small admin-only tweaks on top of the shared theme */
+
+.table thead {
+    background: #14161a;
+    color: #fff;
+}
+.badge-active { background:#2a9d8f; }
+.badge-pending { background:#e9873e; }
+.badge-rejected, .badge-expired { background:#e63946; }
+.badge-inactive { background:#6c757d; }

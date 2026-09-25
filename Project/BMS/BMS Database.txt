@@ -1,0 +1,64 @@
+Books Management System
+
+Books
+- Book_Id
+- Book_Title
+- Book_Description
+- Book_Length
+- Book_Price
+- Edition
+- ISBN
+- Author_Id
+- Publisher_Id
+- Subject_Id
+- Language_Id
+
+Author
+- Author_Id
+- Author_Name
+- Author_Biography
+- Author_Contact
+- Author_Email
+
+Publisher
+- Publisher_Id
+- Publisher_Name
+- Publisher_Address
+- Publisher_Contact
+- Publisher_Email
+- Publisher_Website
+
+Subject
+- Subject_Id
+- Subject_Name
+
+Language
+- Language_Id
+- Language_Name
+
+Person
+-Person_id
+-Person_firstname
+-Person_lastname
+-Address
+-Contact
+-Email
+
+Book_issue
+-Book_issue_id
+-Person_id
+-Book_id
+-Issue_date
+-Return_date
+
+
+
+
+
+
+
+
+
+
+
+
